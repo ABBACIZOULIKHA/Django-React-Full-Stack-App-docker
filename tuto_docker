@@ -1,0 +1,41 @@
+-------------------------------------------------------------
+docker-compose exec backend python manage.py migrate
+→ Runs Django migrations inside the backend container to apply database changes.
+---------------------------------------------------------------
+docker-compose up --build
+→ Builds images (if needed) and starts all services defined in docker-compose.yml.
+---------------------------------------------------------------
+docker-compose down -v
+→ Stops and removes all containers, networks, and volumes (erasing database data).
+---------------------------------------------------------------
+docker logs django-backend
+→ Shows logs for the django-backend container.
+---------------------------------------------------------------
+docker logs react-frontend
+→ Shows logs for the react-frontend container.
+---------------------------------------------------------------
+docker-compose logs backend
+→ Displays logs specifically for the backend service from docker-compose.
+---------------------------------------------------------------
+docker-compose logs frontend
+→ Displays logs for the frontend service.
+---------------------------------------------------------------
+docker container prune
+→ Deletes all stopped containers to free up space.
+---------------------------------------------------------------
+docker-compose up -d
+→ Starts services in detached mode (runs in the background).
+
+---------------- to create images and push them in the docker hub ------------------------
+
+1️⃣ docker build -t abbacitasnime/django-backend .
+➜ Builds a Docker image for the backend from the current directory (.) and tags it as abbacitasnime/django-backend.
+
+2️⃣ docker push abbacitasnime/django-backend
+➜ Uploads the django-backend image to Docker Hub under your account (abbacitasnime).
+
+3️⃣ docker build -t abbacitasnime/react-frontend .
+➜ Builds a Docker image for the frontend and tags it as abbacitasnime/react-frontend.
+
+4️⃣ docker push abbacitasnime/react-frontend
+➜ Uploads the react-frontend image to Docker Hub. 

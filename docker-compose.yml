@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Django backend service
+  backend:
+    build:
+      context: ./backend  # Path to the Django project
+      dockerfile: Dockerfile
+    container_name: django-backend
+    volumes:
+      - backend_data:/app  # Using volumes for persistent data
+    ports:
+      - "8000:8000"  # Exposing port for Django
+    environment:
+      - DEBUG=True
+      - DATABASE_URL=postgres://postgres:mysecurepassword@db:5432/DockerProject
+    depends_on:
+      - db  # Ensure DB is ready before starting Django
+
+  # PostgreSQL database service
+  db:
+    image: postgres:13
+    container_name: postgres-db
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Persistent database storage
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecurepassword  
+      POSTGRES_DB: DockerProject
+    ports:
+      - "5432:5432"  # Exposing Postgres port
+
+  # React frontend service
+  frontend:
+    build:
+      context: ./frontend  # Path to the React project
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    ports:
+      - "5173:5173"  # Exposing port for React app
+    depends_on:
+      - backend  # Ensure backend is ready before React starts
+
+volumes:
+  backend_data:
+  db_data:
