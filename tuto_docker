@@ -26,7 +26,7 @@ docker container prune
 docker-compose up -d
 → Starts services in detached mode (runs in the background).
 
----------------- to create images and push them in the docker hub ------------------------
+------^^^^^^^ to create images and push them in the docker hub ^^^^^^^^------------------------
 
 1️⃣ docker build -t abbacitasnime/django-backend .
 ➜ Builds a Docker image for the backend from the current directory (.) and tags it as abbacitasnime/django-backend.
@@ -39,3 +39,13 @@ docker-compose up -d
 
 4️⃣ docker push abbacitasnime/react-frontend
 ➜ Uploads the react-frontend image to Docker Hub. 
+
+-------------------------- Docker swarme ----------------------------------------
+
+Initialize swarm: docker swarm init
+Add worker node: docker swarm join --token <token> <manager-ip>:2377
+Deploy stack: docker stack deploy -c docker-compose.yml my_stack
+List stacks: docker stack ls
+List services in a stack: docker stack services <stack_name>
+Remove stack: docker stack rm <stack_name>
+View service details: docker service ps <service_name>

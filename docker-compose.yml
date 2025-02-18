@@ -3,10 +3,6 @@ version: '3.8'
 services:
   # Django backend service
   backend:
-    build:
-      context: ./backend  # Path to the Django project
-      dockerfile: Dockerfile
-    container_name: django-backend
     volumes:
       - backend_data:/app  # Using volumes for persistent data
     ports:
@@ -20,7 +16,6 @@ services:
   # PostgreSQL database service
   db:
     image: postgres:13
-    container_name: postgres-db
     volumes:
       - db_data:/var/lib/postgresql/data  # Persistent database storage
     environment:
@@ -32,10 +27,6 @@ services:
 
   # React frontend service
   frontend:
-    build:
-      context: ./frontend  # Path to the React project
-      dockerfile: Dockerfile
-    container_name: react-frontend
     ports:
       - "5173:5173"  # Exposing port for React app
     depends_on:
